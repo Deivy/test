@@ -1,0 +1,6 @@
+VER="1.0"
+REV ?= $(shell hg tip --template '{rev}')
+TS ?= $(shell date +%s)
+
+makedeb:
+	debchange -m -D unstable --force-distribution -v $(VER)-r$(REV)+$(TS) "Automatic build"; debuild -us -uc -b

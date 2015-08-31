@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+    install)
+        debconf-set-selections <<!
+postfix postfix/main_mailer_type  select  Local only
+postfix postfix/mailname          string  $(hostname --fqdn)
+!
+    ;;
+
+    upgrade)
+    ;;
+
+    *)
+        echo "preinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

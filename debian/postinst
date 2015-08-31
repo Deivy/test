@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+    configure)
+        postconf -# relay_transport
+        postconf -# default_transport
+        postconf -e inet_interfaces=loopback-only
+        postconf -e notify_classes=resource,software,protocol,policy,delay,data,bounce
+        # send all root emails to servers@ikatu.net
+        if ! grep -q "root: servers@privnote.com" /etc/aliases; then
+            echo "root: servers@privnote.com" >>/etc/aliases
+            newaliases
+        fi
+        if ! grep -q "Server=monitor.ikatu.net" /etc/zabbix/zabbix_agentd.conf ; then
+            sed -i -e 's/^Server=.*/Server=monitor.ikatu.net/' /etc/zabbix/zabbix_agentd.conf
+        fi 
+        if grep -q "COPYNEWDB=no" /etc/default/aide ; then
+            sed -i -e 's/^COPYNEWDB=no/COPYNEWDB=yes/' /etc/default/aide
+        fi
+        if [ ! -f /var/lib/aide/aide.db ]; then 
+            touch /var/lib/aide/aide.db
+            chmod 600 /var/lib/aide/aide.db
+        fi 
+        service postfix restart
+        service zabbix-agent restart
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
+
+

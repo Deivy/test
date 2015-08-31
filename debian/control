@@ -1,0 +1,13 @@
+Source: spry-server
+Section: metapackages
+Priority: optional
+Maintainer: Deivy Armand Hugon <info@privnote.com>
+Standards-Version: 3.8.3
+Build-Depends: debhelper (>= 5)
+
+Package: spry-server
+Architecture: all
+Depends: postfix, logwatch, aide, zabbix-agent
+Recommends: 
+Description:
+ Privnote Meta Package Server

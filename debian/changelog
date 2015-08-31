@@ -1,0 +1,5 @@
+spry-server (1.0) stable; urgency=low
+
+  * Initial release metapackage spry-server
+
+ -- Privnote (Package Signing Key) <info@privnote.com>  Mon,  31 Ago 2015 14:36:46 -0300
