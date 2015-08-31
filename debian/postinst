@@ -7,7 +7,6 @@ case "$1" in
         postconf -# relay_transport
         postconf -# default_transport
         postconf -e inet_interfaces=loopback-only
-        postconf -e notify_classes=resource,software,protocol,policy,delay,data,bounce
         # send all root emails to servers@ikatu.net
         if ! grep -q "root: servers@privnote.com" /etc/aliases; then
             echo "root: servers@privnote.com" >>/etc/aliases
