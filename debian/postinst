@@ -24,6 +24,7 @@ case "$1" in
         fi 
         service postfix restart
         service zabbix-agent restart
+        service fail2ban restart
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
