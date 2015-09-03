@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 5)
 
 Package: spry-server
 Architecture: all
-Depends: postfix, logwatch, aide, zabbix-agent
+Depends: postfix, logwatch, aide, zabbix-agent, fail2ban
 Recommends: 
 Description:
  Privnote Meta Package Server
