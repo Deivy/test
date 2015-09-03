@@ -22,6 +22,9 @@ case "$1" in
             touch /var/lib/aide/aide.db
             chmod 600 /var/lib/aide/aide.db
         fi 
+        if grep -q "^enabled  = true" /etc/fail2ban/jail.conf ; then
+            sed -i -e 's/^enabled  = true/enabled  = false/' /etc/fail2ban/jail.conf
+        fi
         service postfix restart
         service zabbix-agent restart
         service fail2ban restart
