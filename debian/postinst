@@ -25,6 +25,12 @@ case "$1" in
         if grep -q "^enabled  = true" /etc/fail2ban/jail.conf ; then
             sed -i -e 's/^enabled  = true/enabled  = false/' /etc/fail2ban/jail.conf
         fi
+        if grep -q "^startup=0" /etc/default/shorewall ; then
+            sed -i -e 's/^startup=0/startup=1/' /etc/default/shorewall
+        fi
+        if $(shorewall check > /dev/null 2>&1); then
+            shorewall restart
+        fi
         service postfix restart
         service zabbix-agent restart
         service fail2ban restart

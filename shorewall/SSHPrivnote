@@ -1,0 +1,36 @@
+# Reglas de port-knocking para entrar a servidores via SSH
+# vim:ft=perl:
+use strict;
+use warnings;
+use Shorewall::Chains;
+
+my $KPORT = 20301;
+
+if ( $level ) {
+          log_rule_limit( $level, 
+                          $chainref, 
+                          'SSHKnock',
+                          'ACCEPT',
+                          '',
+                          $tag,
+                          'add',
+                          '-p tcp --dport 22   -m recent --rcheck --name SSH ' );
+          log_rule_limit( $level,
+                          $chainref,
+                          'SSHKnock',
+                          'DROP',
+                          '',
+                          $tag,
+                          'add',
+                          '-p tcp --dport ! 22 ' );
+}
+
+my $portsig = $KPORT+1;
+my $portant = $KPORT-1;
+
+add_rule( $chainref, "-p tcp --dport 22   -m recent --rcheck --seconds 120 --name SSH          -j ACCEPT" );
+add_rule( $chainref, "-p tcp --dport 10000:$portant -m recent                       --name SSH --remove -j DROP" );
+add_rule( $chainref, "-p tcp --dport $KPORT -m recent                       --name SSH --set    -j DROP" );
+add_rule( $chainref, "-p tcp --dport $portsig:65535 -m recent                       --name SSH --remove -j DROP" );
+
+1;

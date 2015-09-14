@@ -1,0 +1,18 @@
+# /etc/shorewall/action.SSHIkatu
+# Reglas de acceso SSH via Trusted Hosts
+# Para el resto de los hosts ver port-knocking en /etc/shorewall/SSHIkatu
+
+# Subnet IkatuMvd  : 200.40.204.224/28 
+# Subnet Boca      : 67.154.192.56/29
+# Subnet Cityplace : 67.94.129.56/29
+# Subnet Vivai     : 64.221.41.66/29
+# IP     Jimmyland : 200.40.84.214
+
+#ACCEPT 200.40.204.224/28 - tcp 22
+ACCEPT 190.0.137.192/27  - tcp 22
+#ACCEPT 67.154.192.56/29  - tcp 22
+#ACCEPT 67.94.129.56/29   - tcp 22
+#ACCEPT 64.221.41.66/29   - tcp 22
+#ACCEPT 200.40.84.214     - tcp 22
+
+#LAST LINE -- ADD YOUR ENTRIES BEFORE THIS ONE -- DO NOT REMOVE
