@@ -1,3 +1,4 @@
 fail2ban/jail.local /etc/fail2ban
 fail2ban/filter.d/sshd-spry.conf /etc/fail2ban/filter.d
 shorewall/** /etc/shorewall
+zabbix/zabbix_agentd.conf.d/spry.conf /etc/zabbix/zabbix_agentd.conf.d
